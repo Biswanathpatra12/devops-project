@@ -1,13 +1,12 @@
 var express = require('express')
 var app = express()
 
-app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
+var port = process.env.PORT || 5000
 
-app.get('/', function(request, response) {
-  response.send('Hello World!')
+app.get('/', function(req, res) {
+  res.send('🚀 DevOps App Running')
 })
 
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
+app.listen(port, '0.0.0.0', function() {
+  console.log("Server running on port " + port)
 })
