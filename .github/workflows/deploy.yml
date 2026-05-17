@@ -17,15 +17,13 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-  echo "CONNECTED"
-  cd ~/devops-app
-  git pull origin main
-  docker build -t devops-app .
+            echo "CONNECTED"
+            cd ~/devops-app
+            git pull origin main
+            docker build -t devops-app .
 
-  # STOP & REMOVE OLD CONTAINERS (IMPORTANT)
-  docker stop $(docker ps -q) || true
-  docker rm $(docker ps -aq) || true
+            docker stop $(docker ps -q) || true
+            docker rm $(docker ps -aq) || true
 
-  # RUN NEW CONTAINERS
-  docker run -d -p 3001:5000 devops-app
-  docker run -d -p 3002:5000 devops-app
+            docker run -d -p 3001:5000 devops-app
+            docker run -d -p 3002:5000 devops-app
