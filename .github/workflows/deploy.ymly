@@ -1,0 +1,28 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "CONNECTED"
+            cd ~/devops-app
+            git pull origin main
+            docker build -t devops-app .
+            docker rm -f $(docker ps -aq) || true
+            docker run -d -p 3001:5000 devops-app
+            docker run -d -p 3002:5000 devops-app
+           
+                        
