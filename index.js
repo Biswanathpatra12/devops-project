@@ -4,7 +4,7 @@ var app = express()
 var port = process.env.PORT || 5000
 
 app.get('/', function(req, res) {
-  res.send('🚀 DevOps App Running')
+  res.send('🚀 CI CD Check pipeline')
 })
 
 app.listen(port, '0.0.0.0', function() {
